@@ -7,10 +7,12 @@ import android.support.v7.widget.Toolbar;
 
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomAppCompatActivity;
+import com.mercadolibre.www.mercadopago.mvp.core.OnFragmentInteractionListener;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
 
-public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI {
+public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI, OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,15 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
     public void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void initFragmentView() {
+        Fragment fragment = PaymentFragment.getInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragment, fragment, "")
+                .commit();
     }
 
     @Override

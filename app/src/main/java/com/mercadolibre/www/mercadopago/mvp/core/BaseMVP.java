@@ -1,6 +1,7 @@
 package com.mercadolibre.www.mercadopago.mvp.core;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 public interface BaseMVP {
 
@@ -32,6 +33,8 @@ public interface BaseMVP {
         void toastShow(String message, int length);
 
         void toastShow(int message, int length);
+
+        void nextFragment(Fragment fragment);
     }
 
     interface FragmentPresenter {

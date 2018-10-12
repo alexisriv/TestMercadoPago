@@ -13,7 +13,7 @@ public class PaymentPresenter extends CustomPresenter<PaymentViewI> implements P
 
     @Override
     public void onSubscribe() {
-
+        this.view.initFragmentView();
     }
 
     @Override

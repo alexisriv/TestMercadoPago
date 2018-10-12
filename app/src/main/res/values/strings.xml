@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="amount_type">Ingrese el monto</string>
     <string name="confirmation">Confirmar</string>
+    <string name="amount_not_zero">El monto no puede ser 0</string>
+    <string name="amount_not_less_zero">El monto no puede ser inferior a cero.</string>
 </resources>
