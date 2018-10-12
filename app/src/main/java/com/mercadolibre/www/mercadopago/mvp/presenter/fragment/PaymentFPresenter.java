@@ -4,6 +4,7 @@ import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.Currency;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFViewI;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentMethodFragment;
 
 public class PaymentFPresenter extends CustomFPresenter<PaymentFViewI> implements PaymentFPresenterI {
 
@@ -24,6 +25,6 @@ public class PaymentFPresenter extends CustomFPresenter<PaymentFViewI> implement
             return;
         }
 
-//        this.viewFragment.nextFragment();
+        this.viewFragment.nextFragment(PaymentMethodFragment.newInstance());
     }
 }

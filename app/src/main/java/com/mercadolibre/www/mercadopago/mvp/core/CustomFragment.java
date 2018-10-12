@@ -67,4 +67,10 @@ public abstract class CustomFragment<T extends BaseMVP.FragmentPresenter> extend
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.onFragmentInteractionListener = null;
+    }
 }
