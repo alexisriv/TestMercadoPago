@@ -22,7 +22,11 @@ public class PaymentPresenter extends CustomPresenter<PaymentViewI> implements P
     }
 
     @Override
-    public void loadFragment(Fragment fragment) {
-        this.view.managementFragmentView(fragment);
+    public void loadFragment(Fragment fragment, boolean isBack) {
+        if (!isBack)
+            this.view.managementFragmentView(fragment);
+        else
+            this.view.managementPopBackStack(fragment);
+
     }
 }

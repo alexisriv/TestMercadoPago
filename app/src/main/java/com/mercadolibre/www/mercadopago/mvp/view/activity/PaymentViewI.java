@@ -8,4 +8,6 @@ public interface PaymentViewI extends BaseMVP.View {
     void initFragmentView();
 
     void managementFragmentView(Fragment fragment);
+
+    void managementPopBackStack(Fragment fragment);
 }

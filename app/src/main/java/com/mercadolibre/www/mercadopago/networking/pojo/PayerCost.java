@@ -1,11 +1,12 @@
 package com.mercadolibre.www.mercadopago.networking.pojo;
 
 import com.google.gson.annotations.SerializedName;
+import com.mercadolibre.www.mercadopago.mvp.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class PayerCost {
+public class PayerCost implements Item {
 
     private int installments;
 
@@ -18,7 +19,7 @@ class PayerCost {
     private List<String> labels = new ArrayList<>();
 
     @SerializedName("installment_rate_collector")
-    private String installmentRateCollector;
+    private List<String> installmentRateCollector;
 
     @SerializedName("min_allowed_amount")
     private float minAllowedAmount;
@@ -54,7 +55,7 @@ class PayerCost {
         return labels;
     }
 
-    public String getInstallmentRateCollector() {
+    public List<String> getInstallmentRateCollector() {
         return installmentRateCollector;
     }
 
@@ -76,5 +77,15 @@ class PayerCost {
 
     public float getTotalAmount() {
         return totalAmount;
+    }
+
+    @Override
+    public String getTitle() {
+        return recommendedMessage;
+    }
+
+    @Override
+    public String getImage() {
+        return "image_default";
     }
 }

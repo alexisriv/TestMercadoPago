@@ -25,6 +25,6 @@ public class PaymentFPresenter extends CustomFPresenter<PaymentFViewI> implement
             return;
         }
 
-        this.viewFragment.nextFragment(PaymentMethodFragment.newInstance());
+        this.viewFragment.nextFragment(PaymentMethodFragment.newInstance(amountAux));
     }
 }

@@ -4,43 +4,50 @@ import android.widget.Toast;
 
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.model.Item;
-import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentInstallmentFragment;
-import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentIssuerFViewI;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentInstallmentFViewI;
 import com.mercadolibre.www.mercadopago.networking.pojo.Error;
 import com.mercadolibre.www.mercadopago.networking.pojo.Installment;
 import com.mercadolibre.www.mercadopago.networking.pojo.Issuer;
+import com.mercadolibre.www.mercadopago.networking.pojo.PayerCost;
 import com.mercadolibre.www.mercadopago.networking.pojo.PaymentMethod;
 import com.mercadolibre.www.mercadopago.networking.service.PaymentMethodService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFViewI> implements PaymentIssuerFPresenterI, PaymentMethodService.PaymentMethodNetworking {
+public class PaymentInstallmentFPresenter extends CustomFPresenter<PaymentInstallmentFViewI> implements PaymentInstallmentFPresenterI, PaymentMethodService.PaymentMethodNetworking {
 
     private PaymentMethodService paymentMethodService;
     private float amount;
-    private String idPayment;
+    private String idPayment, idIssuer;
 
-    public PaymentIssuerFPresenter(PaymentIssuerFViewI viewFragment) {
+    public PaymentInstallmentFPresenter(PaymentInstallmentFViewI viewFragment) {
         super(viewFragment);
     }
 
     @Override
-    public void setParameters(float amount, String idPayment) {
+    public void setParameters(float amount, String idPayment, String idIssuer) {
         this.amount = amount;
         this.idPayment = idPayment;
+        this.idIssuer = idIssuer;
+    }
+
+    @Override
+    public void loadFragment(PayerCost payerCost) {
+        this.viewFragment.nextFragment(new PaymentFragment());
     }
 
     @Override
     public void initServices() {
         this.viewFragment.setRefreshStatusView(true);
         this.paymentMethodService = new PaymentMethodService();
-        this.paymentMethodService.getIssuers(null, idPayment, this);
+        this.paymentMethodService.getInstallments(null, amount, idPayment, idIssuer, this);
     }
 
     @Override
     public void refresh() {
-        this.paymentMethodService.getIssuers(null, idPayment, this);
+        this.paymentMethodService.getInstallments(null, amount, idPayment, idIssuer, this);
     }
 
     @Override
@@ -50,15 +57,16 @@ public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFView
 
     @Override
     public void loadIssuers(List<Issuer> issuers) {
-        List<Item> items = new ArrayList<>();
-        items.addAll(issuers);
-        this.viewFragment.loadItemsView(items);
-        this.viewFragment.setRefreshStatusView(false);
+
     }
 
     @Override
-    public void loadInstallments(List<Installment> Installment) {
-
+    public void loadInstallments(List<Installment> installment) {
+        List<Item> items = new ArrayList<>();
+        if (installment.size() >= 0)
+            items.addAll(installment.get(0).getPayerCosts());
+        this.viewFragment.loadItemsView(items);
+        this.viewFragment.setRefreshStatusView(false);
     }
 
     @Override
@@ -67,8 +75,4 @@ public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFView
         this.viewFragment.setRefreshStatusView(false);
     }
 
-    @Override
-    public void loadFragment(Issuer issuer) {
-        this.viewFragment.nextFragment(PaymentInstallmentFragment.newInstance(this.amount, this.idPayment, issuer.getId()));
-    }
 }

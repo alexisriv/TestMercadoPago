@@ -32,7 +32,8 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
         Fragment fragment = PaymentFragment.getInstance();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment, fragment, "")
+                .add(R.id.fragment, fragment, fragment.getClass().getName())
+                .addToBackStack(fragment.getClass().getName())
                 .commit();
     }
 
@@ -42,8 +43,21 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
             return;
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment, fragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragment, fragment, fragment.getClass().getName());
+        fragmentTransaction.addToBackStack(fragment.getClass().getName());
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void managementPopBackStack(Fragment fragment) {
+        getSupportFragmentManager().popBackStackImmediate(fragment.getClass().getName(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().findFragmentByTag(PaymentFragment.class.getName()) != null) {
+            getSupportFragmentManager().popBackStack();
+        }
+        super.onBackPressed();
     }
 }

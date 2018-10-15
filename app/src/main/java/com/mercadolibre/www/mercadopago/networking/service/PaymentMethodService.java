@@ -77,7 +77,7 @@ public class PaymentMethodService {
 
         void loadIssuers(List<Issuer> issuers);
 
-        void loadInstallments(List<Installment> Installment);
+        void loadInstallments(List<Installment> installment);
 
         void loadError(Error error);
     }

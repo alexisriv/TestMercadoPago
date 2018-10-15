@@ -55,7 +55,7 @@ public class PaymentFragment extends CustomFragment<PaymentFPresenterI> implemen
 
     @Override
     public void nextFragment(Fragment fragment) {
-        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).loadFragment(fragment);
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).loadFragment(fragment, false);
     }
 
     @Override

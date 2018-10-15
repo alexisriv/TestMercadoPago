@@ -26,7 +26,7 @@ public class ItemHolder extends CommonViewHolder<Item> {
     public void bind(final Item item, int index, int size) {
         this.textView.setText(item.getTitle());
         GlideApp.with(itemView)
-                .load(item.getImage()).placeholder(R.drawable.shape_image)
+                .load(item.getImage() == "image_default" ? R.drawable.ic_money : item.getImage()).placeholder(R.drawable.shape_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(this.imageView);
 

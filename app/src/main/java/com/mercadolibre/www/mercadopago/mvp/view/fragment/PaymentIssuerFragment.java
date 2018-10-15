@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mercadolibre.www.mercadopago.R;
-import com.mercadolibre.www.mercadopago.mvp.core.BundleUtils;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFragment;
 import com.mercadolibre.www.mercadopago.mvp.model.Item;
+import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentIssuerFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentIssuerFPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.view.activity.PaymentViewI;
@@ -23,19 +23,25 @@ import com.mercadolibre.www.mercadopago.networking.pojo.Issuer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_AMOUNT;
+import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_ID_PAYMENT;
+
+
 public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresenterI> implements PaymentIssuerFViewI, SwipeRefreshLayout.OnRefreshListener, ItemHolder.CustomOnClickListener<Issuer> {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ItemAdapter mAdapter;
+    private float amount;
     private String idPayment;
 
     public PaymentIssuerFragment() {
     }
 
-    public static PaymentIssuerFragment newInstance(String idPayment) {
+    public static PaymentIssuerFragment newInstance(float amount, String idPayment) {
         PaymentIssuerFragment fragment = new PaymentIssuerFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(BundleUtils.KEY_ID_PAYMENT, idPayment);
+        bundle.putFloat(KEY_AMOUNT, amount);
+        bundle.putString(KEY_ID_PAYMENT, idPayment);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -44,7 +50,8 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.idPayment = getArguments().getString(BundleUtils.KEY_ID_PAYMENT);
+            this.amount = getArguments().getFloat(KEY_AMOUNT);
+            this.idPayment = getArguments().getString(KEY_ID_PAYMENT);
         }
     }
 
@@ -69,13 +76,13 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
 
         this.mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        this.presenter.setIdPayment(this.idPayment);
+        this.presenter.setParameters(this.amount, this.idPayment);
         this.presenter.initServices();
     }
 
     @Override
     public void nextFragment(Fragment fragment) {
-        ((PaymentViewI) onFragmentInteractionListener).managementFragmentView(PaymentFragment.getInstance());
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).loadFragment(fragment, false);
     }
 
     @Override
@@ -94,7 +101,7 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
     }
 
     @Override
-    public void onClick(View view, Issuer o) {
-
+    public void onClick(View view, Issuer issuer) {
+        this.presenter.loadFragment(issuer);
     }
 }
