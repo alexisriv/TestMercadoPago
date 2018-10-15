@@ -48,7 +48,7 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
     }
 
     @Override
-    public void loadInstallments(List<Installment> paymentMethods) {
+    public void loadInstallments(List<Installment> Installment) {
 
     }
 

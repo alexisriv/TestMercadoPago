@@ -1,10 +1,11 @@
 package com.mercadolibre.www.mercadopago.networking.pojo;
 
 import com.google.gson.annotations.SerializedName;
+import com.mercadolibre.www.mercadopago.mvp.model.Item;
 
 import java.util.List;
 
-public class Installment {
+public class Installment implements Item {
 
     @SerializedName("payment_method_id")
     private String paymentMethodId;
@@ -41,5 +42,20 @@ public class Installment {
 
     public List<PayerCost> getPayerCosts() {
         return payerCosts;
+    }
+
+    @Override
+    public String getId() {
+        return null;
+    }
+
+    @Override
+    public String getImage() {
+        return issuer.getImage();
+    }
+
+    @Override
+    public String getTitle() {
+        return processingMode;
     }
 }
