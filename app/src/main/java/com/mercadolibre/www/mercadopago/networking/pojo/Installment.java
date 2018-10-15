@@ -45,11 +45,6 @@ public class Installment implements Item {
     }
 
     @Override
-    public String getId() {
-        return null;
-    }
-
-    @Override
     public String getImage() {
         return issuer.getImage();
     }
