@@ -1,6 +1,7 @@
 package com.mercadolibre.www.mercadopago.networking.pojo;
 
 import com.google.gson.annotations.SerializedName;
+import com.mercadolibre.www.mercadopago.mvp.model.Item;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
 package com.mercadolibre.www.mercadopago.networking.pojo;
 
 import com.google.gson.annotations.SerializedName;
+import com.mercadolibre.www.mercadopago.mvp.model.Item;
 
-public abstract class ElementBase {
+public abstract class ElementBase implements Item {
 
     protected String id;
     protected String name;
@@ -15,6 +16,7 @@ public abstract class ElementBase {
     public ElementBase() {
     }
 
+    @Override
     public String getId() {
         return id;
     }
@@ -29,5 +31,15 @@ public abstract class ElementBase {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public String getImage() {
+        return secureThumbnail;
     }
 }
