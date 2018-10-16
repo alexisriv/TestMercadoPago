@@ -7,4 +7,6 @@ public interface CommonPaymentFPresenter extends BaseMVP.FragmentPresenter {
     void initServices();
 
     void refresh();
+
+    void finishFragment();
 }

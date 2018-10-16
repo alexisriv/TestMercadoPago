@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFragment;
@@ -34,6 +36,9 @@ public class PaymentInstallmentFragment extends CustomFragment<PaymentInstallmen
     private ItemAdapter mAdapter;
     private float amount;
     private String idPayment, idIssuer;
+
+    private TextView messageTextView;
+    private ImageView messageIconImageView;
 
     public PaymentInstallmentFragment() {
     }
@@ -66,8 +71,10 @@ public class PaymentInstallmentFragment extends CustomFragment<PaymentInstallmen
 
     @Override
     public void initView(View view) {
-
         ((PaymentPresenter) onFragmentInteractionListener.getPresenter()).loadTitle(R.string.title_cost);
+
+        this.messageIconImageView = view.findViewById(R.id.messageIconImageView);
+        this.messageTextView = view.findViewById(R.id.messageTextView);
 
         this.mSwipeRefreshLayout = view.findViewById(R.id.paymentMethodSwipeRefreshLayout);
 
@@ -119,5 +126,26 @@ public class PaymentInstallmentFragment extends CustomFragment<PaymentInstallmen
     @Override
     public void onClick(View view, PayerCost payerCost) {
         this.presenter.loadFragment(payerCost);
+    }
+
+    @Override
+    public void setErrorInView(int idMessage, int idImage) {
+        messageIconImageView.setVisibility(View.VISIBLE);
+        messageTextView.setVisibility(View.VISIBLE);
+        messageIconImageView.setImageResource(idImage);
+        messageTextView.setText(idMessage);
+    }
+
+    @Override
+    public void setVisibleErrorInView(boolean b) {
+        int id = b ? View.VISIBLE : View.GONE;
+        messageIconImageView.setVisibility(id);
+        messageTextView.setVisibility(id);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.presenter.finishFragment();
     }
 }

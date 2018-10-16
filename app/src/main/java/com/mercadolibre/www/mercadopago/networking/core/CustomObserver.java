@@ -2,6 +2,7 @@ package com.mercadolibre.www.mercadopago.networking.core;
 
 import android.util.Log;
 
+import com.mercadolibre.www.mercadopago.networking.pojo.Cause;
 import com.mercadolibre.www.mercadopago.networking.pojo.Error;
 
 import java.lang.annotation.Annotation;
@@ -18,6 +19,8 @@ public abstract class CustomObserver<T> implements Observer<Response<T>> {
     private static final String TAG_CLAZZ = CustomObserver.class.getName();
     private T responseModel = null;
     private Error error = null;
+    public static String CAUSE_ERROR_UNK0WN_HOST = "9001";
+    public static String CAUSE_ERROR_OTHER = "9999";
 
     @Override
     public void onSubscribe(Disposable d) {
@@ -39,9 +42,9 @@ public abstract class CustomObserver<T> implements Observer<Response<T>> {
     public void onError(Throwable e) {
         Log.e(TAG_CLAZZ, "onError ".concat(e.getMessage()));
         if (e instanceof UnknownHostException)
-            errorResponse(new Error("Server Not Available.", e.getLocalizedMessage()));
+            errorResponse(new Error("Server Not Available.", e.getLocalizedMessage(), new Cause(CAUSE_ERROR_UNK0WN_HOST, e.getMessage())));
         else
-            errorResponse(new Error(e.getMessage(), e.getLocalizedMessage()));
+            errorResponse(new Error(e.getMessage(), e.getLocalizedMessage(), new Cause(CAUSE_ERROR_OTHER, e.getMessage())));
     }
 
     @Override

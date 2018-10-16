@@ -10,10 +10,9 @@ public class Error {
     public Error() {
     }
 
-    public Error(String message, String error) {
+    public Error(String message, String error, Cause cause) {
         this.message = message;
         this.error = error;
-        this.status = status;
         this.cause = cause;
     }
 

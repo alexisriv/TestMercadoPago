@@ -9,5 +9,9 @@ public interface CommonPaymentViewI  extends BaseMVP.FragmentView {
 
     void setRefreshStatusView(boolean is);
 
+    void setVisibleErrorInView(boolean b);
+
+    void setErrorInView(int idMessage, int idImage);
+
     void loadItemsView(List<Item> items);
 }

@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFragment;
@@ -34,6 +36,8 @@ public class PaymentMethodFragment extends CustomFragment<PaymentMethodFPresente
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ItemAdapter mAdapter;
     private float amount;
+    private TextView messageTextView;
+    private ImageView messageIconImageView;
 
     public PaymentMethodFragment() {
     }
@@ -64,6 +68,9 @@ public class PaymentMethodFragment extends CustomFragment<PaymentMethodFPresente
     @Override
     public void initView(View view) {
         ((PaymentPresenter) onFragmentInteractionListener.getPresenter()).loadTitle(R.string.title_type);
+
+        this.messageIconImageView = view.findViewById(R.id.messageIconImageView);
+        this.messageTextView = view.findViewById(R.id.messageTextView);
 
         this.mSwipeRefreshLayout = view.findViewById(R.id.paymentMethodSwipeRefreshLayout);
 
@@ -131,5 +138,26 @@ public class PaymentMethodFragment extends CustomFragment<PaymentMethodFPresente
     public boolean onQueryTextChange(String s) {
         this.presenter.filterCollection(s);
         return false;
+    }
+
+    @Override
+    public void setErrorInView(int idMessage, int idImage) {
+        messageIconImageView.setVisibility(View.VISIBLE);
+        messageTextView.setVisibility(View.VISIBLE);
+        messageIconImageView.setImageResource(idImage);
+        messageTextView.setText(idMessage);
+    }
+
+    @Override
+    public void setVisibleErrorInView(boolean b) {
+        int id = b ? View.VISIBLE : View.GONE;
+        messageIconImageView.setVisibility(id);
+        messageTextView.setVisibility(id);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.presenter.finishFragment();
     }
 }

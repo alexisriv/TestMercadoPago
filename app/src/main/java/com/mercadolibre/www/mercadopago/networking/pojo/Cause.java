@@ -7,6 +7,12 @@ public class Cause {
     public Cause() {
     }
 
+    public Cause(String code, String description) {
+        this.code= code;
+        this.description= description;
+
+    }
+
     public String getCode() {
         return code;
     }

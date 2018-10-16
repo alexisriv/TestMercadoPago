@@ -16,5 +16,7 @@
     <string name="title_type">Seleccione Tipo de Pago</string>
     <string name="title_issuer">Seleccione la Institución</string>
     <string name="title_cost">Seleccione las Cuotas</string>
+    <string name="message_default">Conexión no disponible</string>
+    <string name="message_empty_list">No se encontraron elementos.</string>
 
 </resources>
