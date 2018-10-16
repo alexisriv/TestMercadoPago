@@ -13,4 +13,6 @@ public interface PaymentViewI extends BaseMVP.View {
     void managementPopBackStack();
 
     void showAlertDialog(InfoAlert infoAlert);
+
+    void clearAmountTextView();
 }

@@ -1,7 +1,9 @@
 package com.mercadolibre.www.mercadopago.mvp.presenter.activity;
 
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
+import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomPresenter;
 import com.mercadolibre.www.mercadopago.mvp.model.InfoAlert;
 import com.mercadolibre.www.mercadopago.mvp.view.activity.PaymentViewI;
@@ -52,5 +54,14 @@ public class PaymentPresenter extends CustomPresenter<PaymentViewI> implements P
             infoAlert.setPayerCost((PayerCost) o);
     }
 
-
+    @Override
+    public void selectedOptionDialog(boolean b) {
+        if (b) {
+            this.view.clearAmountTextView();
+            this.infoAlert = null;
+            this.view.toastShow(R.string.success, Toast.LENGTH_LONG);
+        } else {
+            this.view.toastShow(R.string.cancel, Toast.LENGTH_LONG);
+        }
+    }
 }

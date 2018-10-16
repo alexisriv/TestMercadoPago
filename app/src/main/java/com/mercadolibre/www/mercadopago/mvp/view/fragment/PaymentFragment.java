@@ -64,4 +64,8 @@ public class PaymentFragment extends CustomFragment<PaymentFPresenterI> implemen
 //        Snackbar.make(mEditText, getResources().getString(idResourceString), Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
     }
+
+    public void clearTextView() {
+        mEditText.getText().clear();
+    }
 }

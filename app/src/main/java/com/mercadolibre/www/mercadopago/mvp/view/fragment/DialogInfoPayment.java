@@ -1,6 +1,5 @@
 package com.mercadolibre.www.mercadopago.mvp.view.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,18 +10,23 @@ import android.support.v7.app.AppCompatDialogFragment;
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.model.InfoAlert;
 
+import java.io.Serializable;
+
 import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_INFO_ALERT;
+import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_SELECTED_OPTION;
 
 public class DialogInfoPayment extends AppCompatDialogFragment {
 
     private InfoAlert infoAlert;
+    private SelectedOption selectedOption;
 
     private static DialogInfoPayment instance;
 
-    public static DialogInfoPayment newInstance(InfoAlert infoAlert) {
+    public static DialogInfoPayment newInstance(InfoAlert infoAlert, SelectedOption selectedOption) {
         DialogInfoPayment instance = new DialogInfoPayment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_INFO_ALERT, infoAlert);
+        bundle.putSerializable(KEY_SELECTED_OPTION, selectedOption);
         instance.setArguments(bundle);
         return instance;
     }
@@ -32,6 +36,7 @@ public class DialogInfoPayment extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             this.infoAlert = (InfoAlert) getArguments().getSerializable(KEY_INFO_ALERT);
+            this.selectedOption = (SelectedOption) getArguments().getSerializable(KEY_SELECTED_OPTION);
         }
     }
 
@@ -49,15 +54,23 @@ public class DialogInfoPayment extends AppCompatDialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dismiss();
+                        selectedOption.onPositive();
+                        dialogInterface.dismiss();
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dismiss();
+                        selectedOption.onNegative();
+                        dialogInterface.dismiss();
                     }
                 });
         return builder.create();
+    }
+
+    public interface SelectedOption extends Serializable {
+        void onPositive();
+
+        void onNegative();
     }
 }

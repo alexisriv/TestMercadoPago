@@ -15,8 +15,9 @@ import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.DialogInfoPayment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentMethodFragment;
+import com.mercadolibre.www.mercadopago.networking.pojo.PaymentMethod;
 
-public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI, OnFragmentInteractionListener {
+public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI, OnFragmentInteractionListener, DialogInfoPayment.SelectedOption {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,22 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
 
     @Override
     public void showAlertDialog(InfoAlert infoAlert) {
-        DialogInfoPayment.newInstance(infoAlert).show(getSupportFragmentManager(), "dialog");
+        DialogInfoPayment.newInstance(infoAlert, this)
+                .show(getSupportFragmentManager(), "dialog");
+    }
+
+    @Override
+    public void onPositive() {
+        this.presenter.selectedOptionDialog(true);
+    }
+
+    @Override
+    public void onNegative() {
+        this.presenter.selectedOptionDialog(false);
+    }
+
+    @Override
+    public void clearAmountTextView() {
+        ((PaymentFragment) getSupportFragmentManager().getPrimaryNavigationFragment()).clearTextView();
     }
 }

@@ -13,4 +13,6 @@ public interface PaymentPresenterI extends BaseMVP.Presenter {
     void buildAlertDialog();
 
     void setInfo(Object o);
+
+    void selectedOptionDialog(boolean b);
 }
