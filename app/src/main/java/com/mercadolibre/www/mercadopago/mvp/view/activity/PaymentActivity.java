@@ -38,6 +38,7 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.fragment, fragment, fragment.getClass().getName())
+                    .setPrimaryNavigationFragment(fragment)
                     .commit();
         }
 
