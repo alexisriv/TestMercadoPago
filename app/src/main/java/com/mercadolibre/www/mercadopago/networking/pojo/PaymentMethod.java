@@ -1,9 +1,10 @@
 package com.mercadolibre.www.mercadopago.networking.pojo;
 
 import com.google.gson.annotations.SerializedName;
-import com.mercadolibre.www.mercadopago.mvp.model.Item;
 
 import java.util.List;
+
+import io.reactivex.annotations.Nullable;
 
 public class PaymentMethod extends ElementBase {
 
@@ -55,5 +56,10 @@ public class PaymentMethod extends ElementBase {
 
     public float getMaxAllowedAmount() {
         return maxAllowedAmount;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return obj instanceof String && getTitle().toLowerCase().contains((String) obj);
     }
 }

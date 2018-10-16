@@ -6,4 +6,6 @@ public interface Item {
 
     String getImage();
 
+    boolean equals(Object o);
+
 }

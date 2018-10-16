@@ -7,4 +7,6 @@ public interface PaymentIssuerFPresenterI extends CommonPaymentFPresenter {
     void loadFragment(Issuer issuer);
 
     void setParameters(float amount, String idPayment);
+
+    void filterCollection(String s);
 }

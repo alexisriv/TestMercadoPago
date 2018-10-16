@@ -64,7 +64,6 @@ public abstract class CommonAdapter<T extends CommonViewHolder, J> extends Recyc
 
     @Override
     public void setCollection(List<J> collection) {
-        this._collection.clear();
         this._collection = collection;
         this.notifyDataSetChanged();
     }

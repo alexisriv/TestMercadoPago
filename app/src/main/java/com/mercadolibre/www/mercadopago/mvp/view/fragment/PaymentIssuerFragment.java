@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,7 +30,7 @@ import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_AMOUNT;
 import static com.mercadolibre.www.mercadopago.mvp.core.BundleUtils.KEY_ID_PAYMENT;
 
 
-public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresenterI> implements PaymentIssuerFViewI, SwipeRefreshLayout.OnRefreshListener, ItemHolder.CustomOnClickListener<Issuer> {
+public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresenterI> implements PaymentIssuerFViewI, SwipeRefreshLayout.OnRefreshListener, ItemHolder.CustomOnClickListener<Issuer>, SearchView.OnQueryTextListener {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ItemAdapter mAdapter;
@@ -57,6 +61,7 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.setHasOptionsMenu(true);
         return this.onGenerateView(R.layout.fragment_payment_method, new PaymentIssuerFPresenter(this), inflater, container, savedInstanceState);
     }
 
@@ -107,5 +112,25 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
     @Override
     public void setInfo(Issuer issuer) {
         ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).setInfo(issuer);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        this.presenter.filterCollection(s);
+        return false;
     }
 }

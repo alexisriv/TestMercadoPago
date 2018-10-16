@@ -20,6 +20,8 @@ public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFView
     private PaymentMethodService paymentMethodService;
     private float amount;
     private String idPayment;
+    private List<Item> itemsCopy = new ArrayList<>();
+
 
     public PaymentIssuerFPresenter(PaymentIssuerFViewI viewFragment) {
         super(viewFragment);
@@ -29,6 +31,22 @@ public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFView
     public void setParameters(float amount, String idPayment) {
         this.amount = amount;
         this.idPayment = idPayment;
+    }
+
+    @Override
+    public void filterCollection(String s) {
+        if (s == null || s.trim().isEmpty()) {
+            this.viewFragment.loadItemsView(itemsCopy);
+            return;
+        }
+
+        List<Item> items = new ArrayList<>();
+        for (Item item : itemsCopy) {
+            if (item.equals(s.toLowerCase())) {
+                items.add(item);
+            }
+        }
+        this.viewFragment.loadItemsView(items);
     }
 
     @Override
@@ -52,6 +70,7 @@ public class PaymentIssuerFPresenter extends CustomFPresenter<PaymentIssuerFView
     public void loadIssuers(List<Issuer> issuers) {
         List<Item> items = new ArrayList<>();
         items.addAll(issuers);
+        itemsCopy = items;
         this.viewFragment.loadItemsView(items);
         this.viewFragment.setRefreshStatusView(false);
     }

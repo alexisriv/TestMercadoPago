@@ -19,6 +19,7 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
 
     private PaymentMethodService paymentMethodService;
     private float amount;
+    private List<Item> itemsCopy = new ArrayList<>();
 
     public PaymentMethodFPresenter(PaymentMethodFViewI viewFragment) {
         super(viewFragment);
@@ -38,6 +39,22 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
     }
 
     @Override
+    public void filterCollection(String s) {
+        if (s == null || s.trim().isEmpty()) {
+            this.viewFragment.loadItemsView(itemsCopy);
+            return;
+        }
+
+        List<Item> items = new ArrayList<>();
+        for (Item item : itemsCopy) {
+            if (item.equals(s.toLowerCase())) {
+                items.add(item);
+            }
+        }
+        this.viewFragment.loadItemsView(items);
+    }
+
+    @Override
     public void refresh() {
         this.paymentMethodService.getPaymentMethods(null, "credit_card", this);
     }
@@ -46,6 +63,7 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
     public void loadPaymentMethod(List<PaymentMethod> paymentMethods) {
         List<Item> items = new ArrayList<>();
         items.addAll(paymentMethods);
+        this.itemsCopy = items;
         this.viewFragment.loadItemsView(items);
         this.viewFragment.setRefreshStatusView(false);
     }
