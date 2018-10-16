@@ -16,8 +16,7 @@ public interface PaymentMethodApi {
     String PATH_BASE_PAYMENT_METHOD = "payment_methods/";
 
     @GET(PATH_BASE_PAYMENT_METHOD)
-    Observable<Response<List<PaymentMethod>>> getPaymentMethods(@Query("public_key") String publicKey,
-                                                                @Query("payment_type_id") String paymentTypeId);
+    Observable<Response<List<PaymentMethod>>> getPaymentMethods(@Query("public_key") String publicKey);
 
     @GET(PATH_BASE_PAYMENT_METHOD + "card_issuers")
     Observable<Response<List<Issuer>>> getIssuers(@Query("public_key") String publicKey,

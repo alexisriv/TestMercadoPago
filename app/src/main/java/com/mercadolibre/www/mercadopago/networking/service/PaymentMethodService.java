@@ -18,8 +18,8 @@ public class PaymentMethodService {
 
     private PaymentMethodApi paymentMethodApi = BaseService.getInterface(PaymentMethodApi.class);
 
-    public void getPaymentMethods(String publicKey, String paymentTypeId, final PaymentMethodNetworking paymentMethodNetworking) {
-        this.paymentMethodApi.getPaymentMethods(BaseService.validatePublicKey(publicKey), paymentTypeId)
+    public void getPaymentMethods(String publicKey, final PaymentMethodNetworking paymentMethodNetworking) {
+        this.paymentMethodApi.getPaymentMethods(BaseService.validatePublicKey(publicKey))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CustomObserver<List<PaymentMethod>>() {

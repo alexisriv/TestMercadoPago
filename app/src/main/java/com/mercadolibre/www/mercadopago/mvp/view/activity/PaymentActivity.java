@@ -34,10 +34,13 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
     @Override
     public void initFragmentView() {
         Fragment fragment = PaymentFragment.getInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment, fragment, fragment.getClass().getName()).setPrimaryNavigationFragment(fragment)
-                .commit();
+        if (getSupportFragmentManager().findFragmentByTag(fragment.getClass().getName()) == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment, fragment, fragment.getClass().getName())
+                    .commit();
+        }
+
     }
 
     @Override

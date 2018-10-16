@@ -29,7 +29,7 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
     public void initServices() {
         this.viewFragment.setRefreshStatusView(true);
         this.paymentMethodService = new PaymentMethodService();
-        this.paymentMethodService.getPaymentMethods(null, "credit_card", this);
+        this.paymentMethodService.getPaymentMethods(null, this);
 
     }
 
@@ -56,13 +56,16 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
 
     @Override
     public void refresh() {
-        this.paymentMethodService.getPaymentMethods(null, "credit_card", this);
+        this.paymentMethodService.getPaymentMethods(null, this);
     }
 
     @Override
     public void loadPaymentMethod(List<PaymentMethod> paymentMethods) {
         List<Item> items = new ArrayList<>();
-        items.addAll(paymentMethods);
+        for (PaymentMethod paymentMethod : paymentMethods) {
+            if (paymentMethod.getPaymentTypeId().equalsIgnoreCase("credit_card"))
+                items.add(paymentMethod);
+        }
         this.itemsCopy = items;
         this.viewFragment.loadItemsView(items);
         this.viewFragment.setRefreshStatusView(false);
