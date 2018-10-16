@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFragment;
+import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentFPresenterI;
@@ -38,8 +39,8 @@ public class PaymentFragment extends CustomFragment<PaymentFPresenterI> implemen
 
     @Override
     public void initView(View view) {
+        ((PaymentPresenter) onFragmentInteractionListener.getPresenter()).loadTitle(R.string.app_name);
         view.findViewById(R.id.confirmationButton).setOnClickListener(this);
-
         this.mEditText = view.findViewById(R.id.amountEditText);
     }
 

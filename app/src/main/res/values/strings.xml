@@ -13,4 +13,8 @@
     <string name="cancel">Proceso de pago cancelado.</string>
     <string name="title_dialog">Detalle de Pago</string>
 
+    <string name="title_type">Seleccione Tipo de Pago</string>
+    <string name="title_issuer">Seleccione la Institución</string>
+    <string name="title_cost">Seleccione las Cuotas</string>
+
 </resources>

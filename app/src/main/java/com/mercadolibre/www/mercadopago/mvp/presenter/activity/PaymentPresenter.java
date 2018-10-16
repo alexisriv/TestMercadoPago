@@ -64,4 +64,9 @@ public class PaymentPresenter extends CustomPresenter<PaymentViewI> implements P
             this.view.toastShow(R.string.cancel, Toast.LENGTH_LONG);
         }
     }
+
+    @Override
+    public void loadTitle(int idString) {
+        this.view.setTitleBarView(idString);
+    }
 }

@@ -76,4 +76,9 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
     public void clearAmountTextView() {
         ((PaymentFragment) getSupportFragmentManager().getPrimaryNavigationFragment()).clearTextView();
     }
+
+    @Override
+    public void setTitleBarView(int idString) {
+        getSupportActionBar().setTitle(idString);
+    }
 }

@@ -15,4 +15,6 @@ public interface PaymentViewI extends BaseMVP.View {
     void showAlertDialog(InfoAlert infoAlert);
 
     void clearAmountTextView();
+
+    void setTitleBarView(int idString);
 }

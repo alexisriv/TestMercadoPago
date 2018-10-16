@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFragment;
 import com.mercadolibre.www.mercadopago.mvp.model.Item;
+import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentMethodFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentMethodFPresenterI;
@@ -62,6 +63,8 @@ public class PaymentMethodFragment extends CustomFragment<PaymentMethodFPresente
 
     @Override
     public void initView(View view) {
+        ((PaymentPresenter) onFragmentInteractionListener.getPresenter()).loadTitle(R.string.title_type);
+
         this.mSwipeRefreshLayout = view.findViewById(R.id.paymentMethodSwipeRefreshLayout);
 
         RecyclerView recyclerView = view.findViewById(R.id.paymentMethodRecyclerView);
