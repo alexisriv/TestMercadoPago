@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.mercadolibre.www.mercadopago.R;
+import com.mercadolibre.www.mercadopago.mvp.core.GlideApp;
 import com.mercadolibre.www.mercadopago.mvp.model.InfoAlert;
 
 import java.io.Serializable;
@@ -47,24 +52,49 @@ public class DialogInfoPayment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String message = getActivity().getResources().getString(R.string.message_info, infoAlert.getPaymentMethod().getName(), infoAlert.getIssuer().getName(), infoAlert.getPayerCost().getRecommendedMessage(), infoAlert.getPayerCost().getTotalAmount());
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_info, null);
 
-        builder.setMessage(message)
+        this.initView(view);
+        builder.setTitle(R.string.title_dialog);
+        builder.setView(view)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         selectedOption.onPositive();
                         dialogInterface.dismiss();
                     }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         selectedOption.onNegative();
                         dialogInterface.dismiss();
                     }
-                });
+                }
+        );
+
         return builder.create();
+    }
+
+    private void initView(View view) {
+        String message1 = getActivity().getResources().getString(R.string.message_info_1, infoAlert.getPaymentMethod().getName());
+        String message2 = getActivity().getResources().getString(R.string.message_info_2, infoAlert.getIssuer().getName());
+        String message3 = getActivity().getResources().getString(R.string.message_info_3, infoAlert.getPayerCost().getRecommendedMessage());
+
+
+        ((TextView) view.findViewById(R.id.paymentMethodTextView)).setText(message1);
+        ((TextView) view.findViewById(R.id.institutionTextView)).setText(message2);
+        ((TextView) view.findViewById(R.id.payerCostTextView)).setText(message3);
+
+
+        GlideApp.with(view)
+                .load(infoAlert.getPaymentMethod().getSecureThumbnail())
+                .into((ImageView) view.findViewById(R.id.paymentMethodImageView));
+
+        GlideApp.with(view)
+                .load(infoAlert.getIssuer().getSecureThumbnail())
+                .into((ImageView) view.findViewById(R.id.institutionImageView));
+
     }
 
     public interface SelectedOption extends Serializable {

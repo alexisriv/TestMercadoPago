@@ -5,9 +5,12 @@
     <string name="confirmation">Confirmar</string>
     <string name="amount_not_zero">El monto no puede ser 0</string>
     <string name="amount_not_less_zero">El monto no puede ser inferior a 0.</string>
-    <string name="message_info">Tipo de pago: %1$s, \nInstitución Bancaria: %2$s \nCuotas: %3$s \nTotal a Pagar %4$.2f.</string>
+    <string name="message_info_1">Tipo de pago: %1$s.</string>
+    <string name="message_info_2">Institución Bancaria: %1$s</string>
+    <string name="message_info_3">Cuotas (Total a Pagar): %1$s</string>
     <string name="title_image">Title</string>
     <string name="success">Éxito en el proceso de pago.</string>
     <string name="cancel">Proceso de pago cancelado.</string>
+    <string name="title_dialog">Detalle de Pago</string>
 
 </resources>
