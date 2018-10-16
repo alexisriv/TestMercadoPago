@@ -69,5 +69,6 @@ public class PaymentMethodFPresenter extends CustomFPresenter<PaymentMethodFView
     @Override
     public void loadFragment(PaymentMethod paymentMethod) {
         this.viewFragment.nextFragment(PaymentIssuerFragment.newInstance(this.amount, paymentMethod.getId()));
+        this.viewFragment.setInfo(paymentMethod);
     }
 }

@@ -4,7 +4,6 @@ import android.widget.Toast;
 
 import com.mercadolibre.www.mercadopago.mvp.core.CustomFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.model.Item;
-import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentInstallmentFViewI;
 import com.mercadolibre.www.mercadopago.networking.pojo.Error;
 import com.mercadolibre.www.mercadopago.networking.pojo.Installment;
@@ -35,7 +34,9 @@ public class PaymentInstallmentFPresenter extends CustomFPresenter<PaymentInstal
 
     @Override
     public void loadFragment(PayerCost payerCost) {
-        this.viewFragment.nextFragment(new PaymentFragment());
+        this.viewFragment.nextFragment(null);
+        this.viewFragment.setInfo(payerCost);
+        this.viewFragment.showAlertView();
     }
 
     @Override

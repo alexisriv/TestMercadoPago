@@ -15,10 +15,8 @@ import com.mercadolibre.www.mercadopago.mvp.model.Item;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentInstallmentFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentInstallmentFPresenterI;
-import com.mercadolibre.www.mercadopago.mvp.view.activity.PaymentViewI;
 import com.mercadolibre.www.mercadopago.mvp.view.adapter.ItemAdapter;
 import com.mercadolibre.www.mercadopago.mvp.view.adapter.holder.ItemHolder;
-import com.mercadolibre.www.mercadopago.networking.pojo.Issuer;
 import com.mercadolibre.www.mercadopago.networking.pojo.PayerCost;
 
 import java.util.ArrayList;
@@ -87,6 +85,16 @@ public class PaymentInstallmentFragment extends CustomFragment<PaymentInstallmen
     @Override
     public void nextFragment(Fragment fragment) {
         ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).loadFragment(fragment, true);
+    }
+
+    @Override
+    public void showAlertView() {
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).buildAlertDialog();
+    }
+
+    @Override
+    public void setInfo(PayerCost payerCost) {
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).setInfo(payerCost);
     }
 
     @Override

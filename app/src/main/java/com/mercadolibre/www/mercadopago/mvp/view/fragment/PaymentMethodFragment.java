@@ -99,4 +99,9 @@ public class PaymentMethodFragment extends CustomFragment<PaymentMethodFPresente
     public void onClick(View view, PaymentMethod paymentMethod) {
         this.presenter.loadFragment(paymentMethod);
     }
+
+    @Override
+    public void setInfo(PaymentMethod paymentMethod) {
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).setInfo(paymentMethod);
+    }
 }

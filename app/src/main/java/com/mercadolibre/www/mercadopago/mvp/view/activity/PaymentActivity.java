@@ -2,15 +2,19 @@ package com.mercadolibre.www.mercadopago.mvp.view.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 
 import com.mercadolibre.www.mercadopago.R;
 import com.mercadolibre.www.mercadopago.mvp.core.CustomAppCompatActivity;
 import com.mercadolibre.www.mercadopago.mvp.core.OnFragmentInteractionListener;
+import com.mercadolibre.www.mercadopago.mvp.model.InfoAlert;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.DialogInfoPayment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
+import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentMethodFragment;
 
 public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI, OnFragmentInteractionListener {
 
@@ -32,8 +36,7 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
         Fragment fragment = PaymentFragment.getInstance();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment, fragment, fragment.getClass().getName())
-                .addToBackStack(fragment.getClass().getName())
+                .add(R.id.fragment, fragment, fragment.getClass().getName()).setPrimaryNavigationFragment(fragment)
                 .commit();
     }
 
@@ -49,15 +52,12 @@ public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> 
     }
 
     @Override
-    public void managementPopBackStack(Fragment fragment) {
-        getSupportFragmentManager().popBackStackImmediate(fragment.getClass().getName(), 0);
+    public void managementPopBackStack() {
+        getSupportFragmentManager().popBackStack(PaymentMethodFragment.class.getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentByTag(PaymentFragment.class.getName()) != null) {
-            getSupportFragmentManager().popBackStack();
-        }
-        super.onBackPressed();
+    public void showAlertDialog(InfoAlert infoAlert) {
+        DialogInfoPayment.newInstance(infoAlert).show(getSupportFragmentManager(), "dialog");
     }
 }

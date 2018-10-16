@@ -15,7 +15,6 @@ import com.mercadolibre.www.mercadopago.mvp.model.Item;
 import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentIssuerFPresenter;
 import com.mercadolibre.www.mercadopago.mvp.presenter.fragment.PaymentIssuerFPresenterI;
-import com.mercadolibre.www.mercadopago.mvp.view.activity.PaymentViewI;
 import com.mercadolibre.www.mercadopago.mvp.view.adapter.ItemAdapter;
 import com.mercadolibre.www.mercadopago.mvp.view.adapter.holder.ItemHolder;
 import com.mercadolibre.www.mercadopago.networking.pojo.Issuer;
@@ -103,5 +102,10 @@ public class PaymentIssuerFragment extends CustomFragment<PaymentIssuerFPresente
     @Override
     public void onClick(View view, Issuer issuer) {
         this.presenter.loadFragment(issuer);
+    }
+
+    @Override
+    public void setInfo(Issuer issuer) {
+        ((PaymentPresenterI) onFragmentInteractionListener.getPresenter()).setInfo(issuer);
     }
 }
