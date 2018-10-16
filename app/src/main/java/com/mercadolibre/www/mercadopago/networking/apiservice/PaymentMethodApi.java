@@ -25,7 +25,7 @@ public interface PaymentMethodApi {
 
     @GET(PATH_BASE_PAYMENT_METHOD + "installments")
     Observable<Response<List<Installment>>> getInstallments(@Query("public_key") String publicKey,
-                                                            @Query("amount") Float amount,
+                                                            @Query("amount") String amount,
                                                             @Query("payment_method_id") String paymentTypeId,
                                                             @Query("issuer.id") String issuerId);
 

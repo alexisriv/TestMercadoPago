@@ -64,7 +64,7 @@ public class PaymentInstallmentFPresenter extends CustomFPresenter<PaymentInstal
     @Override
     public void loadInstallments(List<Installment> installment) {
         List<Item> items = new ArrayList<>();
-        if (installment.size() >= 0)
+        if (installment.size() > 0)
             items.addAll(installment.get(0).getPayerCosts());
         this.viewFragment.loadItemsView(items);
         this.viewFragment.setRefreshStatusView(false);

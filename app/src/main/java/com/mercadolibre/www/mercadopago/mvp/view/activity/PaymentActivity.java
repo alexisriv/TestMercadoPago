@@ -15,7 +15,6 @@ import com.mercadolibre.www.mercadopago.mvp.presenter.activity.PaymentPresenterI
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.DialogInfoPayment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentFragment;
 import com.mercadolibre.www.mercadopago.mvp.view.fragment.PaymentMethodFragment;
-import com.mercadolibre.www.mercadopago.networking.pojo.PaymentMethod;
 
 public class PaymentActivity extends CustomAppCompatActivity<PaymentPresenterI> implements PaymentViewI, OnFragmentInteractionListener, DialogInfoPayment.SelectedOption {
 

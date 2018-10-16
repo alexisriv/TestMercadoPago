@@ -8,6 +8,7 @@ import com.mercadolibre.www.mercadopago.networking.pojo.Installment;
 import com.mercadolibre.www.mercadopago.networking.pojo.Issuer;
 import com.mercadolibre.www.mercadopago.networking.pojo.PaymentMethod;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,7 +55,7 @@ public class PaymentMethodService {
     }
 
     public void getInstallments(String publicKey, Float amount, String paymentTypeId, String issuerId, final PaymentMethodNetworking paymentMethodNetworking) {
-        this.paymentMethodApi.getInstallments(BaseService.validatePublicKey(publicKey), amount, paymentTypeId, issuerId)
+        this.paymentMethodApi.getInstallments(BaseService.validatePublicKey(publicKey), NumberFormat.getInstance().format(amount).replace(",", ""), paymentTypeId, issuerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CustomObserver<List<Installment>>() {

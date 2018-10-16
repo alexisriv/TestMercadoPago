@@ -47,7 +47,6 @@ public class DialogInfoPayment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        @SuppressLint("StringFormatMatches")
         String message = getActivity().getResources().getString(R.string.message_info, infoAlert.getPaymentMethod().getName(), infoAlert.getIssuer().getName(), infoAlert.getPayerCost().getRecommendedMessage(), infoAlert.getPayerCost().getTotalAmount());
 
         builder.setMessage(message)

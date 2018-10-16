@@ -58,7 +58,7 @@ public class PaymentPresenter extends CustomPresenter<PaymentViewI> implements P
     public void selectedOptionDialog(boolean b) {
         if (b) {
             this.view.clearAmountTextView();
-            this.infoAlert = null;
+            this.infoAlert = new InfoAlert();
             this.view.toastShow(R.string.success, Toast.LENGTH_LONG);
         } else {
             this.view.toastShow(R.string.cancel, Toast.LENGTH_LONG);
