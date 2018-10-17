@@ -8,7 +8,7 @@ public class CurrencyTest {
     private static final double DELTA = 1e-15;
 
     @Test
-    public void convertStringToFloatTest() {
+    public void convertStringToFloat() {
         assertEquals(0f, Currency.convertStringToFloat("0"), DELTA);
         assertEquals(0f, Currency.convertStringToFloat("120,0"), DELTA);
         assertEquals(-100f, Currency.convertStringToFloat("-100"), DELTA);
