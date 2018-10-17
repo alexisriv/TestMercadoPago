@@ -62,7 +62,6 @@ public abstract class CustomObserver<T> implements Observer<Response<T>> {
         }
     }
 
-    //    TODO: code es para especificar los tipos de errores en dado caso las respuestas sean distintas segun el codigo (400, 401, 500) entre otros
     private void converterResponseError(int code, ResponseBody error) {
         Log.d(TAG_CLAZZ, "converterResponseError");
         try {
